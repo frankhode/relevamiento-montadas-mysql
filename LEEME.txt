@@ -1,0 +1,72 @@
+RELEVAMIENTO DE FOTOGRAFÍAS MONTADAS — MYSQL / XAMPP
+
+INSTALACIÓN
+1. Copiar relevamiento-montadas-mysql dentro de C:\xampp\htdocs\.
+   Mantener esta carpeta separada de la versión anterior.
+2. Iniciar Apache y MySQL desde XAMPP.
+3. Abrir http://localhost/phpmyadmin/ y elegir Importar.
+4. Seleccionar instalar.sql (incluido en esta carpeta) y ejecutar.
+   Crea la base relevamiento_montadas y dos tablas. No borra bases existentes.
+5. Abrir http://localhost/relevamiento-montadas-mysql/.
+
+CONEXIÓN
+La configuración predeterminada es 127.0.0.1, puerto 3306, usuario root,
+contraseña vacía, base relevamiento_montadas.
+Si tu XAMPP usa otra configuración, editar config/database.php con un editor.
+Requiere PHP 7.3 o posterior, PDO MySQL, MySQL 5.7/8 o MariaDB 10.4+.
+El código utiliza InnoDB y utf8mb4. No depende de la extensión MySQL JSON.
+No requiere instalar Node ni paquetes en tu computadora.
+
+TRASLADAR EL TRABAJO ANTERIOR
+1. En la aplicación anterior, con el navegador y perfil donde trabajabas,
+   pulsar Respaldo y conservar el archivo JSON.
+2. En esta versión, pulsar Importar y elegir ese JSON.
+3. Confirmar el reemplazo y esperar el mensaje Guardado en MySQL.
+4. Abrir la carpeta de imágenes para volver a visualizarlas.
+5. Recargar la página: las fichas se vuelven a leer desde MySQL.
+La importación reemplaza el conjunto completo. Descargar un respaldo antes
+si la base ya contiene otro trabajo que se desea conservar.
+
+CÓMO GUARDA
+Los datos de las fichas y el vocabulario reutilizable se guardan en MySQL.
+Cada ficha ocupa una fila en montadas_fichas; contenido conserva sus campos
+en JSON para mantener compatibilidad con los respaldos anteriores.
+montadas_estado guarda el vocabulario y la revisión de la colección.
+Autoguardado aproximadamente 1,2 segundos después de editar. También se puede
+pulsar Guardar en MySQL o Ctrl+S. Esperar Guardado en MySQL antes de cerrar.
+No se usa localStorage para conservar fichas ni vocabulario.
+Si falla la conexión, queda un mensaje visible y el botón permite reintentar.
+Los cambios pendientes sólo existen en memoria hasta que el servidor confirma:
+no cerrar la pestaña; se puede descargar Respaldo aunque MySQL no responda.
+Si dos pestañas modifican la colección, se rechaza el guardado de la versión
+antigua para evitar sobrescribir cambios. Descargar Respaldo de la pestaña
+con cambios pendientes antes de recargar y revisar qué versión conservar.
+El guardado del conjunto es transaccional: se confirma completo o se revierte.
+
+IMÁGENES
+Las fotografías continúan en tus carpetas; no se almacenan dentro de MySQL.
+La base conserva sus nombres y carpeta de origen, junto con las fichas.
+Al abrir otra sesión, seleccionar la carpeta para visualizarlas de nuevo.
+Abrir una carpeta agrega o reconecta imágenes sin descartar los demás lotes.
+Se reconocen identificadores y, cuando fueron renombrados, nombres de frente.
+Conservar nombres y carpetas para evitar ambigüedades entre archivos homónimos.
+TIFF funciona sin Internet: el decodificador está incluido.
+
+RESPALDOS
+Respaldo descarga fichas y vocabulario en un JSON compatible con Importar.
+También se puede exportar relevamiento_montadas desde phpMyAdmin en formato SQL.
+Respaldar las carpetas de fotografías por separado: ni JSON ni SQL incluyen
+los archivos de imagen. Copiar sólo esta aplicación no copia la base MySQL.
+
+ALCANCE
+Instalación local en esta computadora, accesible por localhost.
+No incluye usuarios ni acceso compartido desde otras computadoras.
+El paquete no contiene tus fichas anteriores: trasladarlas mediante Respaldo.
+
+VERIFICACIÓN REALIZADA
+Sintaxis JavaScript, ausencia de guardado en navegador, conservación de fichas
+al abrir carpetas, reasociación por archivo, cambios durante un guardado,
+fallos de conexión, conflictos de revisión y envío de datos con acentos.
+No fue posible ejecutar PHP/MySQL en el entorno de preparación, por lo que
+la instalación completa deberá verificarse en XAMPP. Si aparece un error,
+conservar el JSON original y compartir el mensaje o una captura.
